@@ -1,11 +1,11 @@
-export default function Footer() {
+export default function Footer({ hourGoal, sessionsCount }) {
   return (
     <footer className="footer">
       <div className="left-footer-section">
         <span className="span-1">WEEKLY FOCUS:</span>
-        <span className="span-2">18h 45m</span>
+        <span className="span-2">{hourGoal}</span>
         <p>
-          <span>3</span>
+          <span>{sessionsCount}</span>
           Sessions studied
         </p>
       </div>

@@ -291,7 +291,10 @@ function App() {
         />
       </main>
 
-      <Footer />
+      <Footer
+        sessionsCount={studySessions.length}
+        hourGoal={formatDuration(weeklyStudytime / 60)}
+      />
     </>
   );
 }

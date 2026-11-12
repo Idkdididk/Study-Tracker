@@ -6,7 +6,7 @@
 }
 
 .app-width {
-  width: min(100% - 32px, 780px);
+  width: min(100% - 32px, 850px);
   margin-inline: auto;
 }
 
@@ -44,9 +44,10 @@ body {
 nav {
   margin-top: 10px;
   padding-bottom: 10px;
+  padding-inline: max(16px, calc((100% - 850px) / 2));
   border-bottom: #353437 1px solid;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   gap: 40px;
 
@@ -125,9 +126,8 @@ nav {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #2a2a2c;
-  width: 850px;
-  height: 600px;
+  width: 100%;
+  min-height: 600px;
   border-radius: 9px;
   background:
     radial-gradient(
@@ -136,7 +136,7 @@ nav {
       transparent 40%
     ),
     var(--light-background);
-  margin-top: 25px;
+  margin-top: 20px;
 
   .timer-circle {
     position: relative;
@@ -144,8 +144,8 @@ nav {
     justify-content: center;
     align-items: center;
 
-    width: 300px;
-    height: 300px;
+    width: clamp(230px, 42vw, 300px);
+    aspect-ratio: 1;
     border-radius: 50%;
 
     /* Subtle circular track */
@@ -193,10 +193,10 @@ nav {
       font-family: var(--label-font);
       color: white;
       text-align: center;
-      padding: 40px;
+      padding: clamp(20px, 5vw, 40px);
 
       > h1 {
-        font-size: 60px;
+        font-size: clamp(40px, 9vw, 60px);
         color: var(--font-color-1);
       }
 
@@ -219,7 +219,7 @@ nav {
   }
 
   .presets-time {
-    margin-top: 40px;
+    margin-top: clamp(24px, 5vw, 40px);
     background-color: black;
     height: 50px;
     display: flex;
@@ -252,8 +252,9 @@ nav {
     }
   }
   .control-btns {
-    margin-top: 30px;
+    margin-top: clamp(20px, 4vw, 30px);
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -292,8 +293,9 @@ nav {
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 50px;
+      padding: 0 12px;
       background-color: #0e0e10;
-      padding: 16px 12px;
       color: var(--font-color-2);
       border-radius: 6px;
       cursor: pointer;
@@ -324,22 +326,25 @@ nav {
 
 .session-status {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  gap: 12px;
+  max-width: 100%;
   background-color: black;
   font-family: var(--label-font);
   color: var(--font-color-1);
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin-bottom: 29px;
+  margin-top: 11px;
   font-size: 14px;
   padding: 4px 10px;
   border-radius: 18px;
-  transform: translateY(-9px);
 
   .status-span {
     font-weight: bold;
     color: var(--font-color-3);
     letter-spacing: 1px;
+    white-space: nowrap;
 
     &:before {
       content: "";
@@ -358,6 +363,7 @@ nav {
     font-weight: bold;
     color: var(--font-color-3);
     letter-spacing: 1px;
+    white-space: nowrap;
 
     &:before {
       content: "";
@@ -380,6 +386,46 @@ nav {
   .title-span {
     color: var(--font-color-2);
   }
+
+  .recording-status {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .paused {
+    font-weight: bold;
+    color: var(--font-color-3);
+    letter-spacing: 1px;
+    white-space: nowrap;
+
+    &:before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+      transform: translateY(-1px);
+    }
+  }
+
+  .stop-session-btn {
+    border: 1px solid #56423c;
+    border-radius: 4px;
+    padding: 4px 6px;
+    background-color: #2a1b18;
+    color: var(--font-color-3);
+    font-family: var(--label-font);
+    font-size: 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #3a211b;
+    }
+  }
 }
 
 /* the goal component here */
@@ -388,8 +434,7 @@ nav {
   justify-content: space-between;
   align-items: stretch;
   gap: 20px;
-  width: 850px; /* Matched to .timer width */
-  margin: 0 auto;
+  width: 100%;
 }
 
 .goal-section {
@@ -401,7 +446,6 @@ nav {
   padding: 18px;
   font-family: var(--label-font);
   margin-bottom: 20px;
-  box-sizing: border-box;
 
   .title {
     display: flex;
@@ -501,10 +545,10 @@ nav {
 
 .recent-session-section {
   background-color: var(--light-background);
-  width: 850px;
+  width: 100%;
   height: 450px;
   border-radius: 9px;
-  padding: 24px;
+  padding: clamp(16px, 3vw, 24px);
   margin-bottom: 30px;
 
   display: flex;
@@ -568,6 +612,7 @@ nav {
   margin-bottom: 15px;
 
   .duration {
+    flex-shrink: 0;
     color: var(--font-color-3);
     background-color: var(--main-background);
     border-radius: 2px;
@@ -585,27 +630,35 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 8px;
     padding: 14px;
 
     .give-flex {
+      flex: 1;
+      min-width: 0;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       gap: 8px;
     }
 
     .info {
+      min-width: 0;
+
       > p {
         color: var(--font-color-1);
+        overflow-wrap: anywhere;
       }
 
       > small {
         color: #dcc1b8;
         font-size: 12px;
+        overflow-wrap: anywhere;
       }
     }
 
     .deletion {
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -627,10 +680,10 @@ nav {
 footer {
   border-top: #353437 1px solid;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   gap: 40px;
-  padding: 20px;
+  padding: 20px max(16px, calc((100% - 850px) / 2));
 
   .left-footer-section {
     font-family: var(--main-font);
@@ -705,10 +758,10 @@ footer {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
-  flex-direction: column;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
   background-color: #2a2a2c;
   padding: 20px;
   font-family: var(--label-font);
@@ -801,11 +854,14 @@ footer {
   .prompt-session {
     width: 100%;
     max-width: 460px;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
     padding: 18px;
     padding-bottom: 8px;
     border-radius: 9px;
     background: #29292b;
     color: #e5e1df;
+    font-family: var(--main-font);
 
     .prompt-header {
       display: flex;
@@ -881,7 +937,8 @@ footer {
           outline: none;
           background: #101012;
           color: #e5e1df;
-          font: 13px inherit;
+          font-family: inherit;
+          font-size: 13px;
 
           &:focus {
             border-color: #de734b;
@@ -931,55 +988,182 @@ footer {
   }
 }
 
-/* Added for active recording controls and dynamic recent sessions */
-.session-status {
-  gap: 12px;
-  flex-wrap: wrap;
+/* ------------------------------------------------------------------
+   Responsive layout
+   The base rules above target desktop (>= 1024px). The media queries
+   below progressively tighten spacing and stack content on smaller
+   screens. Selectors mirror the nesting above so they override it.
+   ------------------------------------------------------------------ */
+
+/* Tablet — 768px to 1023px */
+@media (max-width: 1023px) {
+  .timer {
+    min-height: 560px;
+  }
+
+  .goal-container {
+    gap: 16px;
+  }
+
+  .recent-session-section {
+    height: 420px;
+  }
 }
 
-.session-status .recording-status {
-  display: flex;
-  align-items: center;
-  gap: 7px;
+/* Small tablet / large phone — 480px to 767px */
+@media (max-width: 767px) {
+  nav {
+    gap: 16px;
+  }
+
+  .session-status {
+    gap: 10px;
+    font-size: 13px;
+    padding: 3px 9px;
+  }
+
+  .timer {
+    min-height: 0;
+    padding: 24px 16px;
+  }
+
+  .timer .control-btns {
+    width: 100%;
+  }
+
+  .timer .control-btns .start-btn {
+    flex: 1 1 160px;
+  }
+
+  .goal-container {
+    gap: 16px;
+  }
+
+  .goal-section {
+    padding: 16px;
+  }
+
+  footer.footer {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .recent-session-section {
+    height: 400px;
+  }
 }
 
-.session-status .paused {
-  font-weight: bold;
-  color: var(--font-color-3);
-  letter-spacing: 1px;
+/* Goal cards stack once two columns get too tight */
+@media (max-width: 640px) {
+  .goal-container {
+    flex-direction: column;
+    gap: 16px;
+    margin-block: 20px;
+  }
+
+  .goal-section {
+    margin-block: 0;
+  }
 }
 
-.session-status .paused:before {
-  content: "";
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  background-color: var(--primary-color);
-  border-radius: 50%;
-  margin-right: 6px;
-  vertical-align: middle;
-  transform: translateY(-1px);
-}
+/* Mobile — 320px to 479px */
+@media (max-width: 479px) {
+  nav {
+    gap: 8px;
+  }
 
-.session-status .stop-session-btn {
-  border: 1px solid #56423c;
-  border-radius: 4px;
-  padding: 4px 6px;
-  background-color: #2a1b18;
-  color: var(--font-color-3);
-  font-family: var(--label-font);
-  font-size: 10px;
-  cursor: pointer;
-}
+  nav .right-section {
+    min-width: 0;
+    gap: 7px;
+  }
 
-.session-status .stop-session-btn:hover {
-  background-color: #3a211b;
-}
+  nav .right-section .cpu-icon {
+    flex-shrink: 0;
+  }
 
-.recent-session-section .sessions-empty {
-  padding: 24px 12px;
-  color: var(--font-color-4);
-  font-family: var(--main-font);
-  font-size: 13px;
-  text-align: center;
+  nav .right-section .text-wrapper1 {
+    min-width: 0;
+  }
+
+  nav .right-section small {
+    display: block;
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  nav .left-section {
+    flex-shrink: 0;
+  }
+
+  nav .left-section .date-span {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  .timer {
+    padding: 24px 12px;
+  }
+
+  .timer .timer-content .timer-btns {
+    min-height: 32px;
+    padding: 6px 10px;
+  }
+
+  .timer .presets-time {
+    width: 100%;
+    justify-content: space-between;
+    gap: 4px;
+    padding-inline: 6px;
+  }
+
+  .timer .presets-time .mins-btn {
+    flex: 1;
+    padding: 9px 4px;
+    font-size: 12px;
+  }
+
+  .timer .presets-time .timer-spans {
+    margin-left: 2px;
+    font-size: 9px;
+  }
+
+  .timer .control-btns .start-session-btn {
+    flex: 1 1 100%;
+  }
+
+  .recent-session-section {
+    height: 360px;
+  }
+
+  .session-bar .session-wrapper {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .session-bar .session-wrapper .give-flex {
+    flex: 1 1 100%;
+    align-items: flex-start;
+  }
+
+  .session-bar .session-wrapper .deletion {
+    flex-basis: 100%;
+    justify-content: flex-end;
+    margin-left: 0;
+  }
+
+  .session-bar .session-wrapper .delete-btn {
+    padding: 6px 4px;
+  }
+
+  .session-status .stop-session-btn {
+    padding: 6px 10px;
+  }
+
+  footer .left-footer-section {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
