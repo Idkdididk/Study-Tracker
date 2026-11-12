@@ -1,47 +1,55 @@
 import Session from "./Session";
 
-export default function RecentSessions({ studySessions }) {
-  console.log(studySessions);
+function formatDuration(seconds) {
+  const totalMinutes = Math.floor(seconds / 60);
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  if (hours > 0) {
+    return `${hours}h ${String(minutes).padStart(2, "0")}m`;
+  }
+
+  if (minutes > 0) {
+    return `${minutes}m`;
+  }
+
+  return `${seconds}s`;
+}
+
+export default function RecentSessions({ studySessions, deleteSession }) {
+  const totalDuration = studySessions.reduce((total, session) => {
+    return total + session.duration;
+  }, 0);
+
   return (
     <section className="recent-session-section">
       <div className="header-section">
         <h1>Recent sessions</h1>
-        <span>4 recorded</span>
+        <span>{studySessions.length} recorded</span>
       </div>
 
-      {/* components goes here of added sessions */}
       <div className="sessions">
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
-        <Session />
+        {studySessions.length > 0 ? (
+          studySessions.map((session) => (
+            <Session
+              key={session.id}
+              session={session}
+              deleteSession={deleteSession}
+            />
+          ))
+        ) : (
+          <p className="sessions-empty">
+            No completed sessions yet. Your finished sessions will appear here.
+          </p>
+        )}
       </div>
 
-      {/* footer goes here */}
       <div className="footer-section">
         <div className="right-footer-section">
-          <span>3h 20m total recorded · 4 sessions completed</span>
-        </div>
-        <div className="left-footer-section">
-          <span>cargo bench && cargo clippy ok</span>
+          <span>
+            {formatDuration(totalDuration)} total recorded ·{" "}
+            {studySessions.length} sessions completed
+          </span>
         </div>
       </div>
     </section>
